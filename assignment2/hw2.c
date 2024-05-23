@@ -8,27 +8,47 @@
 
 bool isEmpty (int* s, int t) {
   // returns true if t = -1
-
-  // INSERT YOUR CODE HERE
+  if (t == -1) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 bool isFull (int* s, int t) {
   // returns true if no more room in the stack
-
-  // INSERT YOUR CODE HERE
+  if (t == MAXSIZE - 1) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 void push(int v, int* s, int* tp) {
   // put v onto the top of the stack s unless it is already full
-
-  // INSERT YOUR CODE HERE
+  if (isFull(s, *tp)) {
+    // If the stack is full, print an error message
+    printf("Stack is full. Cannot push %d.\n", v);
+  } else {
+    // If the stack is not full, increment the top index and add the value
+    *tp = *tp + 1;
+    s[*tp] = v;
+  }
 }
 
 int pop (int* s, int* tp) {
   // return the top entry in the stack unless stack is empty
   // update s and *tp -- requires top to be passed by reference!
-
-  // INSERT YOUR CODE HERE
+  if (isEmpty(s, *tp)) {
+    // If the stack is empty, print an error message
+    printf("Stack is empty. Cannot pop.\n");
+    return -1; // Return an error value
+  } else {
+    // If the stack is not empty, return the top value and decrement the top index
+    int topValue = s[*tp];
+    *tp = *tp - 1;
+    return topValue;
+  }
 }
 
 int main () {
