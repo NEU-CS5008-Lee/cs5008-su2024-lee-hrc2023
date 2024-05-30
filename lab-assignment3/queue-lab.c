@@ -32,18 +32,38 @@ int peek(int *arr)
 }
 
 /*---To insert the elements into the queue------*/
-void enqueue(int data, int *arr)
-{
-    //insert your code here
-
- 
+void enqueue(int data, int *arr) {
+    if (isfull()) {
+        printf("Queue is full.\n");
+        return; // Check if the queue is full first
+    }
+    if (isempty()) {
+        front = rear = 0; // If the queue is empty then the first element
+        // will be added to the queue, equating the last elememt
+    } else {
+        rear = (rear + 1) % N; // The % N expression ensures that
+        // if the front exceeds the last element N it will wrap around
+        // back to the first element of the queue
+    }
+    arr[rear] = data;
 }
 
 /*----Function to remove the elements from the queue----*/
-int dequeue(int *arr)
-{   
-    //insert your code here
-
+int dequeue(int *arr) {
+    if (isempty()) {
+        printf("Queue is empty.\n");
+        return -1; // Check if the queue if empty
+    }
+    int data = arr[front];
+    if (front == rear) {
+        front = rear = -1; //checks if the queue will become empty
+        // after the dequeue action. If so both are set to '-1' 
+    } else {
+        front = (front + 1) % N; // The % N expression ensures that
+        // if the front exceeds the last element N it will wrap around
+        // back to the first element of the queue
+    }
+    return data;
 }
 
 /*---Function to display the elements of the queue-------*/
