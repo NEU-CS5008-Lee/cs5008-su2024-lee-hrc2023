@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Haoyang (Hendrick) Chen
+// email: chen.haoyang4@northeastern.edu
 
 #include <stdio.h>   // stardard input/output library
 #include <stdbool.h> // standard boolean library: bool, true, false
@@ -69,10 +69,15 @@ typedef struct q {
 
 // create new empty queue (head and tail are set to NULL)
 queue_t* newQueue() {
-  queue_t* q_p;   // temp pointer to hold newly created queue
+  queue_t* q_p=(queue_t*)malloc(sizeof(queue_t)); // malloc action for the queue
 
   // ***** INSERT YOUR CODE HERE *****
   
+  if (q_p != NULL) { // the New queue should be empty
+    q_p->head_p = NULL; // initialize head pointer to NULL
+    q_p->tail_p = NULL; // initialize tail pointer to NULL
+  }
+
   return q_p;
 };
 
@@ -81,26 +86,33 @@ bool isEmpty(queue_t* q_p) {
   bool b = true;   // temporary bool to hold return value - initalize to default value
 
   // ***** INSERT YOUR CODE HERE *****
+  if (q_p != NULL && q_p->head_p != NULL) {
+    b = false; // false if queue not NULL
+  }
   
   return b;
 };
 
 // function to add a new node with data d to tail of the queue
 void enqueue(queue_t* q_p, int d) {
-  node_t* n_p = NULL; // temp node pointer
+  node_t* n_p = newNode(d); // assign value to the node_t
   
-  if (q_p != NULL) {
+  if (q_p != NULL && n_p != NULL) {
 
     if (isEmpty(q_p)) {
       // queue is empty so insertion is easy
 
       // ***** INSERT YOUR CODE HERE *****
+      q_p->head_p = n_p; // first node is also the last node
+      q_p->tail_p = n_p;
 
     } else {
       // queue is not empty
 
       // ***** INSERT YOUR CODE HERE *****
-
+      q_p->tail_p->right_p = n_p; // link the current tail to the new node
+      n_p->left_p = q_p->tail_p;  // link the new node back to the current tail
+      q_p->tail_p = n_p;          // update the tail to be the new node
     }    
   }
   
@@ -122,11 +134,15 @@ int dequeue(queue_t* q_p) {
           // only one node in the queue, clear queue head and tail 
 
           // ***** INSERT YOUR CODE HERE *****
+          q_p->head_p = NULL;
+          q_p->tail_p = NULL;
 	  
 	} else {
           // mulitple nodes in queue, clean up head pointer and new head of queue
 
 	  // ***** INSERT YOUR CODE HERE *****
+    q_p->head_p = n_p->right_p;  // move head to the next node
+    q_p->head_p->left_p = NULL;  // set the left pointer of the new head to NULL
 	  
 	}
 	
