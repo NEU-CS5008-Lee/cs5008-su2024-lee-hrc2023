@@ -31,29 +31,51 @@ void generate_num(int* arr){
   }
 }
 
-void selection_sort_2arr(int* source, int* dest, bool* valid)
-{
+void selection_sort_2arr(int* source, int* dest, bool* valid){
   int smallest;      // current smallest element
+  int smallest_index;
 
   for (int i=0; i<LIMIT; i++) {
 
   // INSERT YOUR CODE HERE
+        smallest = RAND_RANGE + 1; // Initialize to a value larger than any possible element
+        smallest_index = -1;
 
+        for (int j = 0; j < LIMIT; j++) {
+            if (valid[j] && source[j] < smallest) {
+                smallest = source[j];
+                smallest_index = j;
+            }
+        }
+
+        if (smallest_index != -1) {
+            dest[i] = source[smallest_index];
+            valid[smallest_index] = false;
+
+    }
   }
 }
 
+void selection_sort_1arr(int* source) {
+    int smallest; // current smallest element
+    int temp; // temporary for swap
+    int smallest_index;
 
-void selection_sort_1arr(int* source)
-{
-  int smallest;      // current smallest element
-  int temp;          // temporary for swap
+    for (int i = 0; i < LIMIT - 1; i++) {
+        smallest_index = i;
 
-  for (int i=0; i<LIMIT; i++) {
+        for (int j = i + 1; j < LIMIT; j++) {
+            if (source[j] < source[smallest_index]) {
+                smallest_index = j;
+            }
+        }
 
-  // INSERT YOUR CODE HERE
-
-  }
+        temp = source[smallest_index];
+        source[smallest_index] = source[i];
+        source[i] = temp;
+    }
 }
+
 
 
 int main(){
