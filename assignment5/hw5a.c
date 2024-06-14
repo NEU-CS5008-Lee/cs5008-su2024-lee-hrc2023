@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Hendrick Chen
+// email: chen.haoyang4@northeastern.edu
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,16 +32,49 @@ int findMin(int a, int b){
 
 // merge two sorted sub arrays
 void mergeIt(
-	   char* data,
-	   int leftStart,
-	   int leftStop,
-	   int rightStart,
-	   int rightStop) {
-  
+	  char* data, // The array
+	  int leftStart, // The starting index of the left Subarray
+	  int leftStop, // The ending ~ left ~
+	  int rightStart, // The starting ~ right ~ 
+	  int rightStop
+    // The ending ~ right ~
+    ) {
+  int n = rightStop - leftStart + 1; // Total number of elements
+  char* temp = (char*)malloc(n * sizeof(char));
+  if (temp == NULL) {
+    printf("Memory allocation failed\n");
+    exit(1);
+  }
 
-  // ADD YOUR CODE HERE
-  
-  return;
+  int left = leftStart;
+  int right = rightStart;
+  int index = 0;  
+
+  // Merge the two subarrays into temp array
+  while (left <= leftStop && right <= rightStop) {
+    if (data[left] <= data[right]) {
+      temp[index++] = data[left++];
+    } else {
+      temp[index++] = data[right++];
+    }
+  }
+
+  // Copy the remaining elements of left subarray, if any
+  while (left <= leftStop) {
+    temp[index++] = data[left++];
+  }
+
+  // Copy the remaining elements of right subarray, if any
+  while (right <= rightStop) {
+    temp[index++] = data[right++];
+  }
+
+  // Copy the sorted elements back into the original array
+  for (int i = 0; i < n; i++) {
+    data[leftStart + i] = temp[i];
+  }
+
+  free(temp);
 }
 
 

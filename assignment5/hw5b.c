@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Hendrick Chen
+// email: chen.haoyang4@northeastern.edu
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,17 +31,38 @@ char upperChar(char c){
   }
 }
 
+// Helper function swap goes here before quick sort
+void swap(char* a, char* b) {
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
+// Another helper function partition goes here
+int partition(char* data, int left, int right) {
+    char pivot = data[right]; // pivot element is at the rightmost position
+    int i = left - 1; // index of the smaller element
+
+    for (int j = left; j <= right - 1; j++) {
+        if (data[j] < pivot) {
+            i++;
+            swap(&data[i], &data[j]);
+        }
+    }
+    swap(&data[i + 1], &data[right]);
+    return (i + 1);
+}
 
 // pick pivot and then sort small and big parts 
 void quicky(char* data, int left, int right) {
-
   // ADD YOUR CODE HERE
-
+  if (left < right) {
+    int pi = partition(data, left, right); // partition index
+    quicky(data, left, pi - 1); // sort the left subarray
+    quicky(data, pi + 1, right); // sort the right subarray
+  }
   return;
 }
-
-
 
 int main(){
 
