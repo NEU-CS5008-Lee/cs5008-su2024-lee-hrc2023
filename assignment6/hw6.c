@@ -266,7 +266,6 @@ void postorder (tnode_t* np) {
   printf("%c ", np->data);
 }
 
-
 void breadthFirst (tnode_t* root) {
   if (root == NULL) return;
 
@@ -345,7 +344,6 @@ int main() {
 
   return 0;
 }
-
 
 
 
